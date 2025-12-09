@@ -34,7 +34,7 @@ Add this code to your HTML:
   width="1200" 
   height="700" 
   src="panorama.html" 
-  frameborder="0" 
+  style="border: none;"
   allowfullscreen
   allow="accelerometer; gyroscope; vr"
   title="360 Panorama Viewer">
