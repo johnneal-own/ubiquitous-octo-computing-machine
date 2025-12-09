@@ -28,6 +28,32 @@
         width: 100%;
         height: 100%;
       }
+      
+      /* Toggle button for accessibility */
+      .eye-frame-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 10000;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        pointer-events: auto;
+        transition: background-color 0.3s;
+      }
+      
+      .eye-frame-toggle:hover {
+        background-color: rgba(0, 0, 0, 0.9);
+      }
+      
+      .eye-frame.hidden {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -41,8 +67,13 @@
       </a-camera>
     </a-scene>
     
+    <!-- Toggle button for accessibility -->
+    <button class="eye-frame-toggle" onclick="toggleEyeFrame()" title="Toggle eye frame overlay for better accessibility">
+      👁️ Toggle Eye Frame
+    </button>
+    
     <!-- Eye Frame Overlay (Binocular/VR Goggle Effect) -->
-    <div class="eye-frame">
+    <div class="eye-frame" id="eyeFrame">
       <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
         <defs>
           <!-- Gradient for frame depth effect -->
@@ -80,5 +111,25 @@
         <circle cx="800" cy="350" r="205" fill="none" stroke="#2a2a2a" stroke-width="3" opacity="0.7"/>
       </svg>
     </div>
+    
+    <script>
+      // Toggle eye frame overlay for accessibility
+      function toggleEyeFrame() {
+        const eyeFrame = document.getElementById('eyeFrame');
+        eyeFrame.classList.toggle('hidden');
+        
+        // Save preference to localStorage
+        const isHidden = eyeFrame.classList.contains('hidden');
+        localStorage.setItem('eyeFrameHidden', isHidden);
+      }
+      
+      // Restore user preference on page load
+      window.addEventListener('DOMContentLoaded', function() {
+        const eyeFrameHidden = localStorage.getItem('eyeFrameHidden') === 'true';
+        if (eyeFrameHidden) {
+          document.getElementById('eyeFrame').classList.add('hidden');
+        }
+      });
+    </script>
   </body>
 </html>

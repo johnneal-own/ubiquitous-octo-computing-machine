@@ -10,6 +10,7 @@ An interactive 360° panorama viewer with a binocular/VR goggle-style eye frame 
 - **VR Mode**: Built-in VR mode support for compatible devices
 - **Mobile Friendly**: Gyroscope support for mobile devices
 - **Easy Embedding**: Simple iframe integration for any website
+- **Accessibility**: Toggle button to show/hide eye frame overlay, with preference saved locally
 
 ## Files
 
@@ -73,6 +74,7 @@ Then wrap your iframe:
 - **Keyboard**: WASD or arrow keys to navigate
 - **Mobile**: Move device to look around (gyroscope)
 - **VR Mode**: Click VR button in bottom-right corner
+- **Toggle Eye Frame**: Click the "👁️ Toggle Eye Frame" button (top-right) to show/hide the overlay for better accessibility
 
 ## Customization
 
