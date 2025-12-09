@@ -1,7 +1,116 @@
-<iframe 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>360 Panorama Viewer - Embed Example</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+      }
+      
+      .container {
+        max-width: 1240px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+      
+      h1 {
+        color: #333;
+        margin-top: 0;
+      }
+      
+      .panorama-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 58.33%; /* 1200:700 aspect ratio */
+        margin: 20px 0;
+        background-color: #000;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      
+      .panorama-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+      
+      .info {
+        color: #666;
+        line-height: 1.6;
+        margin-top: 20px;
+      }
+      
+      .embed-code {
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 15px;
+        margin-top: 20px;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        overflow-x: auto;
+      }
+      
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+        
+        .container {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>360° Panorama Viewer with Eye Frame</h1>
+      
+      <div class="panorama-container">
+        <iframe 
+          src="panorama.html" 
+          allowfullscreen
+          allow="accelerometer; gyroscope; vr"
+          title="360 Panorama Viewer">
+        </iframe>
+      </div>
+      
+      <div class="info">
+        <h2>About</h2>
+        <p>This is an interactive 360° panorama viewer with a binocular-style eye frame overlay. You can:</p>
+        <ul>
+          <li>Click and drag to look around</li>
+          <li>Use WASD or arrow keys to navigate</li>
+          <li>Click the VR button (bottom right) for VR mode</li>
+          <li>Works on mobile devices with gyroscope support</li>
+          <li>Toggle the eye frame overlay (top-right button) for better accessibility</li>
+        </ul>
+        
+        <h2>Embed This Panorama</h2>
+        <p>To embed this panorama viewer in your website, use the following code:</p>
+        <div class="embed-code">
+&lt;iframe 
   width="1200" 
   height="700" 
   src="panorama.html" 
-  frameborder="0" 
-  allowfullscreen>
-</iframe>
+  style="border: none;"
+  allowfullscreen
+  allow="accelerometer; gyroscope; vr"
+  title="360 Panorama Viewer"&gt;
+&lt;/iframe&gt;
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

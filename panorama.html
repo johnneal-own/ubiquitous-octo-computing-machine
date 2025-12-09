@@ -2,12 +2,134 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>360 Panorama Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>360 Panorama Viewer with Eye Frame</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #000;
+      }
+      
+      /* Eye frame overlay */
+      .eye-frame {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+      }
+      
+      .eye-frame svg {
+        width: 100%;
+        height: 100%;
+      }
+      
+      /* Toggle button for accessibility */
+      .eye-frame-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 10000;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        pointer-events: auto;
+        transition: background-color 0.3s;
+      }
+      
+      .eye-frame-toggle:hover {
+        background-color: rgba(0, 0, 0, 0.9);
+      }
+      
+      .eye-frame.hidden {
+        display: none;
+      }
+    </style>
   </head>
   <body>
-    <a-scene>
-      <a-sky src=--- rotation="0 -130 0"></a-sky>
+    <!-- A-Frame Scene with 360 Panorama -->
+    <a-scene embedded vr-mode-ui="enabled: true">
+      <a-sky src="7CCB8559-C96A-4DE3-B847-10F4AB3035AF_L0_001-24_06_2025, 16_37_35.jpg" rotation="0 -130 0"></a-sky>
+      
+      <!-- Camera with user controls -->
+      <a-camera>
+        <a-cursor color="#FFFFFF" opacity="0.5"></a-cursor>
+      </a-camera>
     </a-scene>
+    
+    <!-- Toggle button for accessibility -->
+    <button class="eye-frame-toggle" onclick="toggleEyeFrame()" title="Toggle eye frame overlay for better accessibility" aria-label="Toggle eye frame overlay">
+      👁️ Toggle Eye Frame
+    </button>
+    
+    <!-- Eye Frame Overlay (Binocular/VR Goggle Effect) -->
+    <div class="eye-frame" id="eyeFrame">
+      <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <!-- Gradient for frame depth effect -->
+          <radialGradient id="frameGradient" cx="50%" cy="50%" r="50%">
+            <stop offset="70%" style="stop-color:#000000;stop-opacity:0" />
+            <stop offset="85%" style="stop-color:#000000;stop-opacity:0.3" />
+            <stop offset="95%" style="stop-color:#000000;stop-opacity:0.7" />
+            <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+          </radialGradient>
+          
+          <!-- Mask for binocular view -->
+          <mask id="binocularMask">
+            <rect width="100%" height="100%" fill="white"/>
+            <!-- Left eye circle -->
+            <circle cx="400" cy="350" r="200" fill="black"/>
+            <!-- Right eye circle -->
+            <circle cx="800" cy="350" r="200" fill="black"/>
+          </mask>
+        </defs>
+        
+        <!-- Black background with binocular cutout -->
+        <rect width="100%" height="100%" fill="black" mask="url(#binocularMask)" opacity="0.95"/>
+        
+        <!-- Left eye frame with gradient -->
+        <circle cx="400" cy="350" r="200" fill="url(#frameGradient)" opacity="0.8"/>
+        
+        <!-- Right eye frame with gradient -->
+        <circle cx="800" cy="350" r="200" fill="url(#frameGradient)" opacity="0.8"/>
+        
+        <!-- Central bridge -->
+        <rect x="575" y="330" width="50" height="40" rx="5" fill="#1a1a1a" opacity="0.95"/>
+        
+        <!-- Frame highlights for realism -->
+        <circle cx="400" cy="350" r="205" fill="none" stroke="#2a2a2a" stroke-width="3" opacity="0.7"/>
+        <circle cx="800" cy="350" r="205" fill="none" stroke="#2a2a2a" stroke-width="3" opacity="0.7"/>
+      </svg>
+    </div>
+    
+    <script>
+      // Toggle eye frame overlay for accessibility
+      function toggleEyeFrame() {
+        const eyeFrame = document.getElementById('eyeFrame');
+        eyeFrame.classList.toggle('hidden');
+        
+        // Save preference to localStorage
+        const isHidden = eyeFrame.classList.contains('hidden');
+        localStorage.setItem('eyeFrameHidden', isHidden);
+      }
+      
+      // Restore user preference on page load
+      window.addEventListener('DOMContentLoaded', function() {
+        const eyeFrameHidden = localStorage.getItem('eyeFrameHidden') === 'true';
+        if (eyeFrameHidden) {
+          document.getElementById('eyeFrame').classList.add('hidden');
+        }
+      });
+    </script>
   </body>
 </html>
