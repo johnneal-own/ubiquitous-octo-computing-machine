@@ -89,6 +89,8 @@ Edit the SVG in `panorama.html` to customize:
 
 Replace the image file with your own 360° panorama (equirectangular format, 2:1 aspect ratio recommended) and update the `src` attribute in the `<a-sky>` element.
 
+**Note**: For better web compatibility, consider renaming your panorama image file to use web-friendly names without spaces or special characters (e.g., `panorama.jpg` or `panorama_360.jpg`).
+
 ## Technology
 
 - **A-Frame**: WebVR framework for 360° panorama rendering
